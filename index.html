@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Order Platform - Welcome</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        .coffee-emoji {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        a {
+            display: inline-block;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+        .features {
+            margin-top: 40px;
+            text-align: left;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+        }
+        .features h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .feature-icon {
+            font-size: 1.5em;
+            margin-right: 15px;
+        }
+        .feature-text {
+            color: #666;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="coffee-emoji">☕</div>
+        <h1>Coffee Order Platform</h1>
+        <p>A modern, full-stack coffee ordering platform designed to make ordering your favorite beverages simple and enjoyable.</p>
+        
+        <div class="btn-group">
+            <a href="/api/orders" class="btn-primary">View API</a>
+            <a href="https://github.com/jenilparmar/coffee-order-platform" class="btn-secondary">GitHub</a>
+        </div>
+
+        <div class="features">
+            <h3>Key Features</h3>
+            <div class="feature-item">
+                <span class="feature-icon">🛒</span>
+                <span class="feature-text">Easy order placement with customizable options</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">📋</span>
+                <span class="feature-text">Complete order history and tracking</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">⚡</span>
+                <span class="feature-text">Real-time status updates</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🎨</span>
+                <span class="feature-text">Clean and modern user interface</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🔧</span>
+                <span class="feature-text">RESTful API for integration</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
