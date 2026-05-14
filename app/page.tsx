@@ -224,6 +224,7 @@ export default function Home() {
                   <option value="cookie">Cookie</option>
                   <option value="bagel">Bagel</option>
                   <option value="sandwich">Sandwich</option>
+                  <option value="punjabi-thali">Punjabi thali</option>
                 </select>
               </label>
 
