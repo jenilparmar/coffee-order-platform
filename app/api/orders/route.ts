@@ -77,7 +77,8 @@ function calculateTotal(
     'muffin': 2.75,
     'cookie': 2.25,
     'bagel': 2.50,
-    'sandwich': 5.50
+    'sandwich': 5.50,
+    'punjabi-thali': 9.50
   };
 
   const sizeMultipliers: { [key: string]: number } = {
