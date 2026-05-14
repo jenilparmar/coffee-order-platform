@@ -9,6 +9,8 @@ interface Order {
   quantity: number;
   size: string;
   milkType: string;
+  snackType: string;
+  snackQuantity: number;
   specialInstructions: string;
   status: string;
   total: number;
@@ -23,6 +25,8 @@ export default function Home() {
     quantity: 1,
     size: 'medium',
     milkType: 'regular',
+    snackType: 'none',
+    snackQuantity: 1,
     specialInstructions: ''
   });
 
@@ -57,6 +61,8 @@ export default function Home() {
           quantity: 1,
           size: 'medium',
           milkType: 'regular',
+          snackType: 'none',
+          snackQuantity: 1,
           specialInstructions: ''
         });
       }
@@ -67,9 +73,10 @@ export default function Home() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    const numberFields = ['quantity', 'snackQuantity'];
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'quantity' ? parseInt(value) || 1 : value
+      [name]: numberFields.includes(name) ? parseInt(value) || 1 : value
     }));
   };
 
@@ -203,6 +210,35 @@ export default function Home() {
               </select>
             </label>
 
+            <div className="field-row">
+              <label className="field">
+                <span>Snack</span>
+                <select
+                  name="snackType"
+                  value={formData.snackType}
+                  onChange={handleInputChange}
+                >
+                  <option value="none">None</option>
+                  <option value="croissant">Croissant</option>
+                  <option value="muffin">Muffin</option>
+                  <option value="cookie">Cookie</option>
+                  <option value="bagel">Bagel</option>
+                  <option value="sandwich">Sandwich</option>
+                </select>
+              </label>
+
+              <label className="field">
+                <span>Snack quantity</span>
+                <input
+                  type="number"
+                  name="snackQuantity"
+                  value={formData.snackQuantity}
+                  onChange={handleInputChange}
+                  min="1"
+                />
+              </label>
+            </div>
+
             <label className="field">
               <span>Special instructions</span>
               <textarea
@@ -260,6 +296,18 @@ export default function Home() {
                       <strong>Milk</strong>
                       <span>{order.milkType}</span>
                     </p>
+                    {order.snackType && order.snackType !== 'none' && (
+                      <>
+                        <p>
+                          <strong>Snack</strong>
+                          <span>{order.snackType}</span>
+                        </p>
+                        <p>
+                          <strong>Snack qty</strong>
+                          <span>{order.snackQuantity}</span>
+                        </p>
+                      </>
+                    )}
                     <p>
                       <strong>Quantity</strong>
                       <span>{order.quantity}</span>

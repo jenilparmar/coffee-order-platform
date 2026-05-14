@@ -23,10 +23,18 @@ export async function POST(request: Request) {
       quantity: orderData.quantity,
       size: orderData.size || 'medium',
       milkType: orderData.milkType || 'regular',
+      snackType: orderData.snackType || 'none',
+      snackQuantity: orderData.snackQuantity || 1,
       specialInstructions: orderData.specialInstructions || '',
       status: 'pending',
       createdAt: new Date().toISOString(),
-      total: calculateTotal(orderData.coffeeType, orderData.quantity, orderData.size)
+      total: calculateTotal(
+        orderData.coffeeType,
+        orderData.quantity,
+        orderData.size,
+        orderData.snackType,
+        orderData.snackQuantity
+      )
     };
 
     orders.push(order);
@@ -44,7 +52,13 @@ export async function GET() {
   return NextResponse.json(orders);
 }
 
-function calculateTotal(coffeeType: string, quantity: number, size: string = 'medium'): number {
+function calculateTotal(
+  coffeeType: string,
+  quantity: number,
+  size: string = 'medium',
+  snackType: string = 'none',
+  snackQuantity: number = 0
+): number {
   const basePrices: { [key: string]: number } = {
     'espresso': 3.50,
     'latte': 4.50,
@@ -58,6 +72,14 @@ function calculateTotal(coffeeType: string, quantity: number, size: string = 'me
     'herbal-tea': 3.75
   };
 
+  const snackPrices: { [key: string]: number } = {
+    'croissant': 3.25,
+    'muffin': 2.75,
+    'cookie': 2.25,
+    'bagel': 2.50,
+    'sandwich': 5.50
+  };
+
   const sizeMultipliers: { [key: string]: number } = {
     'small': 0.8,
     'medium': 1.0,
@@ -66,6 +88,9 @@ function calculateTotal(coffeeType: string, quantity: number, size: string = 'me
 
   const basePrice = basePrices[coffeeType] || 4.00;
   const multiplier = sizeMultipliers[size] || 1.0;
-  
-  return Number((basePrice * multiplier * quantity).toFixed(2));
+  const snackPrice = snackType && snackType !== 'none' ? (snackPrices[snackType] || 0) : 0;
+  const drinkTotal = basePrice * multiplier * quantity;
+  const snackTotal = snackPrice * (snackQuantity || 0);
+
+  return Number((drinkTotal + snackTotal).toFixed(2));
 }
