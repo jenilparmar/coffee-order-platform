@@ -50,7 +50,12 @@ function calculateTotal(coffeeType: string, quantity: number, size: string = 'me
     'latte': 4.50,
     'cappuccino': 4.00,
     'americano': 3.00,
-    'mocha': 5.00
+    'mocha': 5.00,
+    'chai': 4.25,
+    'matcha': 5.25,
+    'green-tea': 3.50,
+    'black-tea': 3.25,
+    'herbal-tea': 3.75
   };
 
   const sizeMultipliers: { [key: string]: number } = {

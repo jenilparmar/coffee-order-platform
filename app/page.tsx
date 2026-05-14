@@ -142,7 +142,7 @@ export default function Home() {
             </label>
 
             <label className="field">
-              <span>Coffee type</span>
+              <span>Drink type</span>
               <select
                 name="coffeeType"
                 value={formData.coffeeType}
@@ -153,6 +153,11 @@ export default function Home() {
                 <option value="cappuccino">Cappuccino</option>
                 <option value="americano">Americano</option>
                 <option value="mocha">Mocha</option>
+                <option value="chai">Chai</option>
+                <option value="matcha">Matcha</option>
+                <option value="green-tea">Green tea</option>
+                <option value="black-tea">Black tea</option>
+                <option value="herbal-tea">Herbal tea</option>
               </select>
             </label>
 
@@ -248,7 +253,7 @@ export default function Home() {
                       <span>{order.customerName}</span>
                     </p>
                     <p>
-                      <strong>Coffee</strong>
+                      <strong>Drink</strong>
                       <span>{order.coffeeType} ({order.size})</span>
                     </p>
                     <p>
