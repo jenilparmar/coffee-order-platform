@@ -73,33 +73,80 @@ export default function Home() {
     }));
   };
 
+  const totalOrders = orders.length;
+  const preparingOrders = orders.filter(order => order.status === 'preparing').length;
+  const completedOrders = orders.filter(order => order.status === 'completed').length;
+
   return (
-    <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '2rem' }}>☕ Coffee Order Platform</h1>
-      
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-        <div>
-          <h2>Place New Order</h2>
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div className="page">
+      <header className="hero">
+        <div className="hero-content">
+          <p className="eyebrow">Brew Lab</p>
+          <h1>Coffee Order Platform</h1>
+          <p className="lead">
+            A streamlined queue for baristas and caffeine lovers. Track every order, keep the flow steady,
+            and make every cup intentional.
+          </p>
+          <div className="hero-actions">
+            <button className="button primary" type="button" onClick={fetchOrders}>
+              Refresh orders
+            </button>
+            <div className="pill">Live queue: {totalOrders}</div>
+          </div>
+        </div>
+        <div className="hero-card">
+          <div className="hero-card-header">
+            <h2>Today at a glance</h2>
+            <span className="badge">Realtime</span>
+          </div>
+          <div className="hero-stats">
             <div>
-              <label>Customer Name:</label>
+              <p className="stat-label">Total orders</p>
+              <p className="stat-value">{totalOrders}</p>
+            </div>
+            <div>
+              <p className="stat-label">Preparing</p>
+              <p className="stat-value">{preparingOrders}</p>
+            </div>
+            <div>
+              <p className="stat-label">Completed</p>
+              <p className="stat-value">{completedOrders}</p>
+            </div>
+          </div>
+          <div className="hero-note">
+            <p>Tip: refresh the queue after each rush to keep the timeline accurate.</p>
+          </div>
+        </div>
+      </header>
+
+      <main className="content-grid">
+        <section className="panel form-panel">
+          <div className="panel-header">
+            <div>
+              <h2>Place a new order</h2>
+              <p className="panel-subtitle">Capture every detail before it hits the bar.</p>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} className="order-form">
+            <label className="field">
+              <span>Customer name</span>
               <input
                 type="text"
                 name="customerName"
                 value={formData.customerName}
                 onChange={handleInputChange}
                 required
-                style={{ width: '100%', padding: '0.5rem' }}
+                placeholder="Avery Johnson"
               />
-            </div>
+            </label>
 
-            <div>
-              <label>Coffee Type:</label>
+            <label className="field">
+              <span>Coffee type</span>
               <select
                 name="coffeeType"
                 value={formData.coffeeType}
                 onChange={handleInputChange}
-                style={{ width: '100%', padding: '0.5rem' }}
               >
                 <option value="espresso">Espresso</option>
                 <option value="latte">Latte</option>
@@ -107,41 +154,40 @@ export default function Home() {
                 <option value="americano">Americano</option>
                 <option value="mocha">Mocha</option>
               </select>
+            </label>
+
+            <div className="field-row">
+              <label className="field">
+                <span>Quantity</span>
+                <input
+                  type="number"
+                  name="quantity"
+                  value={formData.quantity}
+                  onChange={handleInputChange}
+                  min="1"
+                />
+              </label>
+
+              <label className="field">
+                <span>Size</span>
+                <select
+                  name="size"
+                  value={formData.size}
+                  onChange={handleInputChange}
+                >
+                  <option value="small">Small</option>
+                  <option value="medium">Medium</option>
+                  <option value="large">Large</option>
+                </select>
+              </label>
             </div>
 
-            <div>
-              <label>Quantity:</label>
-              <input
-                type="number"
-                name="quantity"
-                value={formData.quantity}
-                onChange={handleInputChange}
-                min="1"
-                style={{ width: '100%', padding: '0.5rem' }}
-              />
-            </div>
-
-            <div>
-              <label>Size:</label>
-              <select
-                name="size"
-                value={formData.size}
-                onChange={handleInputChange}
-                style={{ width: '100%', padding: '0.5rem' }}
-              >
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-              </select>
-            </div>
-
-            <div>
-              <label>Milk Type:</label>
+            <label className="field">
+              <span>Milk type</span>
               <select
                 name="milkType"
                 value={formData.milkType}
                 onChange={handleInputChange}
-                style={{ width: '100%', padding: '0.5rem' }}
               >
                 <option value="regular">Regular</option>
                 <option value="skim">Skim</option>
@@ -150,88 +196,83 @@ export default function Home() {
                 <option value="oat">Oat</option>
                 <option value="none">None</option>
               </select>
-            </div>
+            </label>
 
-            <div>
-              <label>Special Instructions:</label>
+            <label className="field">
+              <span>Special instructions</span>
               <textarea
                 name="specialInstructions"
                 value={formData.specialInstructions}
                 onChange={handleInputChange}
                 rows={3}
-                style={{ width: '100%', padding: '0.5rem' }}
+                placeholder="Extra hot, no foam, cinnamon on top"
               />
-            </div>
+            </label>
 
-            <button
-              type="submit"
-              style={{
-                padding: '1rem',
-                backgroundColor: '#0070f3',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
-            >
-              Place Order
+            <button className="button primary" type="submit">
+              Place order
             </button>
           </form>
-        </div>
+        </section>
 
-        <div>
-          <h2>Order History</h2>
-          <button
-            onClick={fetchOrders}
-            style={{
-              marginBottom: '1rem',
-              padding: '0.5rem 1rem',
-              backgroundColor: '#666',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
-          >
-            Refresh Orders
-          </button>
-          
-          <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
+        <section className="panel history-panel">
+          <div className="panel-header">
+            <div>
+              <h2>Order history</h2>
+              <p className="panel-subtitle">A quick snapshot of the current queue.</p>
+            </div>
+            <button className="button ghost" type="button" onClick={fetchOrders}>
+              Refresh
+            </button>
+          </div>
+
+          <div className="order-list">
             {orders.length === 0 ? (
-              <p>No orders yet. Place your first order!</p>
+              <div className="empty-state">
+                <p>No orders yet.</p>
+                <span>Create the first ticket to kickstart the flow.</span>
+              </div>
             ) : (
               orders.map(order => (
-                <div
-                  key={order.id}
-                  style={{
-                    border: '1px solid #ddd',
-                    padding: '1rem',
-                    marginBottom: '1rem',
-                    borderRadius: '4px'
-                  }}
-                >
-                  <h3>Order #{order.id}</h3>
-                  <p><strong>Customer:</strong> {order.customerName}</p>
-                  <p><strong>Coffee:</strong> {order.coffeeType} ({order.size})</p>
-                  <p><strong>Quantity:</strong> {order.quantity}</p>
-                  <p><strong>Milk:</strong> {order.milkType}</p>
-                  <p><strong>Total:</strong> ${order.total}</p>
-                  <p><strong>Status:</strong> <span style={{ 
-                    color: order.status === 'completed' ? 'green' : 
-                           order.status === 'preparing' ? 'orange' : 'gray'
-                  }}>
-                    {order.status}
-                  </span></p>
+                <article key={order.id} className="order-card">
+                  <div className="order-card-header">
+                    <div>
+                      <h3>Order #{order.id}</h3>
+                      <p className="order-meta">{new Date(order.createdAt).toLocaleString()}</p>
+                    </div>
+                    <span className={`status ${order.status}`}>{order.status}</span>
+                  </div>
+                  <div className="order-details">
+                    <p>
+                      <strong>Customer</strong>
+                      <span>{order.customerName}</span>
+                    </p>
+                    <p>
+                      <strong>Coffee</strong>
+                      <span>{order.coffeeType} ({order.size})</span>
+                    </p>
+                    <p>
+                      <strong>Milk</strong>
+                      <span>{order.milkType}</span>
+                    </p>
+                    <p>
+                      <strong>Quantity</strong>
+                      <span>{order.quantity}</span>
+                    </p>
+                    <p>
+                      <strong>Total</strong>
+                      <span>${order.total.toFixed(2)}</span>
+                    </p>
+                  </div>
                   {order.specialInstructions && (
-                    <p><strong>Instructions:</strong> {order.specialInstructions}</p>
+                    <p className="order-note">{order.specialInstructions}</p>
                   )}
-                  <p><small>{new Date(order.createdAt).toLocaleString()}</small></p>
-                </div>
+                </article>
               ))
             )}
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
     </div>
   );
 }
